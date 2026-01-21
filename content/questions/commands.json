@@ -1,0 +1,228 @@
+[
+  {
+    "id": "commands-001",
+    "category": "commands",
+    "difficulty": 1,
+    "concept_intro": "Claude Code has built-in slash commands you can type directly. The /help command shows you a list of all available commands and how to use them.",
+    "question_text": "Which command shows you all available Claude Code commands?",
+    "options": [
+      "/help",
+      "/commands",
+      "/list",
+      "/menu"
+    ],
+    "correct_index": 0,
+    "explanation": "The /help command displays a list of all available commands and their descriptions, helping you discover Claude Code's capabilities."
+  },
+  {
+    "id": "commands-002",
+    "category": "commands",
+    "difficulty": 1,
+    "concept_intro": "The /clear command clears the current conversation history. This is useful when you want to start fresh or when the context has become too long.",
+    "question_text": "What does the /clear command do?",
+    "options": [
+      "Clears the conversation history",
+      "Clears the terminal screen",
+      "Clears all cached files",
+      "Clears the todo list"
+    ],
+    "correct_index": 0,
+    "explanation": "The /clear command clears the current conversation history, giving you a fresh start while preserving project files and settings."
+  },
+  {
+    "id": "commands-003",
+    "category": "commands",
+    "difficulty": 2,
+    "concept_intro": "The /compact command reduces context usage by summarizing the conversation. Use it when working on long sessions to free up context space.",
+    "question_text": "When should you use the /compact command?",
+    "options": [
+      "When the conversation is getting long and using too much context",
+      "When you want to compress file sizes",
+      "When you want to speed up command execution",
+      "When you want to merge multiple conversations"
+    ],
+    "correct_index": 0,
+    "explanation": "The /compact command summarizes the conversation to reduce context usage. Use it during long sessions to free up space for new information."
+  },
+  {
+    "id": "commands-004",
+    "category": "commands",
+    "difficulty": 1,
+    "concept_intro": "Skills are user-invocable commands that perform specific tasks. They're referenced with a slash like /commit or /review-pr. The Skill tool is used internally to execute them.",
+    "question_text": "What is a 'skill' in Claude Code?",
+    "options": [
+      "A user-invocable command for specific tasks like /commit",
+      "A measure of Claude's expertise level",
+      "A type of agent",
+      "A configuration setting"
+    ],
+    "correct_index": 0,
+    "explanation": "Skills are user-invocable commands (like /commit, /review-pr) that perform specific tasks. They're specialized commands you can call directly."
+  },
+  {
+    "id": "commands-005",
+    "category": "commands",
+    "difficulty": 2,
+    "concept_intro": "The TodoWrite tool helps you manage and plan tasks. It tracks progress, organizes complex tasks, and gives visibility into what Claude is working on.",
+    "question_text": "What is the purpose of the TodoWrite tool?",
+    "options": [
+      "To track progress and organize complex tasks",
+      "To write code automatically",
+      "To send messages to users",
+      "To manage file permissions"
+    ],
+    "correct_index": 0,
+    "explanation": "TodoWrite helps manage tasks by tracking progress, breaking down complex work into steps, and giving users visibility into what's being worked on."
+  },
+  {
+    "id": "commands-006",
+    "category": "commands",
+    "difficulty": 2,
+    "concept_intro": "The AskUserQuestion tool lets Claude ask clarifying questions during execution. It can present options with descriptions, allowing single or multiple selections.",
+    "question_text": "When should Claude use the AskUserQuestion tool?",
+    "options": [
+      "When clarification is needed or there are multiple valid approaches",
+      "When an error occurs",
+      "When writing to a file",
+      "When starting any new task"
+    ],
+    "correct_index": 0,
+    "explanation": "Use AskUserQuestion when you need to gather preferences, clarify ambiguous instructions, or get decisions on implementation choices."
+  },
+  {
+    "id": "commands-007",
+    "category": "commands",
+    "difficulty": 2,
+    "concept_intro": "When you run commands like /commit, the skill is loaded and its instructions appear in the conversation. Claude then follows those instructions to complete the task.",
+    "question_text": "What happens when you invoke a skill like /commit?",
+    "options": [
+      "The skill is loaded and its instructions guide Claude",
+      "The code is immediately committed",
+      "A new agent is launched",
+      "A confirmation dialog appears"
+    ],
+    "correct_index": 0,
+    "explanation": "When you invoke a skill, it gets expanded into a full prompt with instructions. Claude then follows those instructions to complete the task."
+  },
+  {
+    "id": "commands-008",
+    "category": "commands",
+    "difficulty": 3,
+    "concept_intro": "The Read tool is preferred over bash commands like cat, head, or tail for reading files. It provides line numbers and handles binary files appropriately.",
+    "question_text": "Why should you use the Read tool instead of 'cat' or 'head' in bash?",
+    "options": [
+      "It provides line numbers and handles files appropriately",
+      "It's faster than bash commands",
+      "It uses less memory",
+      "It's the only way to read files"
+    ],
+    "correct_index": 0,
+    "explanation": "The Read tool is optimized for Claude Code - it provides line numbers, handles binary files (images, PDFs), and gives better context for editing."
+  },
+  {
+    "id": "commands-009",
+    "category": "commands",
+    "difficulty": 2,
+    "concept_intro": "The Edit tool performs exact string replacements in files. You must read a file before editing it, and the old_string must be unique in the file.",
+    "question_text": "What must be true for the Edit tool to work?",
+    "options": [
+      "The old_string must be unique in the file",
+      "The file must be less than 1000 lines",
+      "The file must be a JavaScript file",
+      "The Edit tool must be enabled in settings"
+    ],
+    "correct_index": 0,
+    "explanation": "The Edit tool requires the old_string to be unique in the file. If it's not unique, the edit will fail and you'll need to provide more context."
+  },
+  {
+    "id": "commands-010",
+    "category": "commands",
+    "difficulty": 1,
+    "concept_intro": "The Glob tool is used for fast file pattern matching. It supports patterns like '**/*.js' to find all JavaScript files recursively.",
+    "question_text": "What pattern would find all TypeScript files in a project?",
+    "options": [
+      "**/*.ts",
+      "*.ts",
+      "find *.ts",
+      "search typescript"
+    ],
+    "correct_index": 0,
+    "explanation": "The pattern **/*.ts uses glob syntax where ** matches any directory depth and *.ts matches files ending in .ts."
+  },
+  {
+    "id": "commands-011",
+    "category": "commands",
+    "difficulty": 2,
+    "concept_intro": "The Grep tool is built on ripgrep and supports regex patterns. Always use Grep instead of bash grep or rg commands for searching file contents.",
+    "question_text": "What is the Grep tool built on?",
+    "options": [
+      "ripgrep",
+      "GNU grep",
+      "ack",
+      "ag (silver searcher)"
+    ],
+    "correct_index": 0,
+    "explanation": "The Grep tool is built on ripgrep (rg), which is fast and has good regex support. Use it instead of bash grep commands."
+  },
+  {
+    "id": "commands-012",
+    "category": "commands",
+    "difficulty": 3,
+    "concept_intro": "When using Grep for cross-line patterns (like finding a struct with a specific field), enable 'multiline: true'. By default, patterns only match within single lines.",
+    "question_text": "When should you use 'multiline: true' with Grep?",
+    "options": [
+      "When patterns need to span multiple lines",
+      "When searching multiple files",
+      "When wanting multiple results",
+      "When searching binary files"
+    ],
+    "correct_index": 0,
+    "explanation": "Use multiline: true when your pattern needs to match content across multiple lines, like finding a struct definition with a specific field inside it."
+  },
+  {
+    "id": "commands-013",
+    "category": "commands",
+    "difficulty": 2,
+    "concept_intro": "The Write tool creates or overwrites files. You must read an existing file before writing to it. Always prefer Edit over Write for existing files.",
+    "question_text": "Before using Write on an existing file, what must you do?",
+    "options": [
+      "Read the file first",
+      "Delete the file first",
+      "Backup the file first",
+      "Nothing special is required"
+    ],
+    "correct_index": 0,
+    "explanation": "You must Read a file before using Write on it. This ensures you understand the current content. For existing files, prefer Edit over Write."
+  },
+  {
+    "id": "commands-014",
+    "category": "commands",
+    "difficulty": 3,
+    "concept_intro": "For git commits, use HEREDOC syntax to properly format multi-line commit messages. This prevents issues with special characters and line breaks.",
+    "code_snippet": "git commit -m \"$(cat <<'EOF'\nMessage here\nEOF\n)\"",
+    "question_text": "Why use HEREDOC syntax for git commit messages?",
+    "options": [
+      "To properly format multi-line messages with special characters",
+      "To make commits faster",
+      "To enable commit hooks",
+      "To sign commits automatically"
+    ],
+    "correct_index": 0,
+    "explanation": "HEREDOC syntax ensures proper formatting of multi-line commit messages and handles special characters correctly."
+  },
+  {
+    "id": "commands-015",
+    "category": "commands",
+    "difficulty": 3,
+    "concept_intro": "The WebFetch tool fetches content from URLs and processes it with a prompt. For GitHub URLs, prefer using the gh CLI instead for better integration.",
+    "question_text": "For GitHub URLs, what should you use instead of WebFetch?",
+    "options": [
+      "The gh CLI via Bash",
+      "The GitHubFetch tool",
+      "The API tool",
+      "WebFetch is preferred for all URLs"
+    ],
+    "correct_index": 0,
+    "explanation": "For GitHub URLs, use the gh CLI (e.g., gh pr view, gh issue view) instead of WebFetch. It provides better GitHub integration."
+  }
+]

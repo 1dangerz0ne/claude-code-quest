@@ -1,0 +1,228 @@
+[
+  {
+    "id": "agents-001",
+    "category": "agents",
+    "difficulty": 1,
+    "concept_intro": "Claude Code can launch specialized agents to handle complex tasks. The Explore agent is designed for quickly searching and understanding codebases.",
+    "question_text": "Which agent type should you use when you need to search through a codebase to understand its structure?",
+    "options": [
+      "Explore",
+      "Bash",
+      "Plan",
+      "Write"
+    ],
+    "correct_index": 0,
+    "explanation": "The Explore agent is specifically designed for codebase exploration - it can search for files, find patterns, and help you understand code structure quickly."
+  },
+  {
+    "id": "agents-002",
+    "category": "agents",
+    "difficulty": 1,
+    "concept_intro": "The Task tool launches specialized agents that run as subprocesses. You specify the type of agent with the 'subagent_type' parameter.",
+    "question_text": "What parameter do you use to specify which type of agent to launch?",
+    "options": [
+      "subagent_type",
+      "agent_name",
+      "type",
+      "agent_mode"
+    ],
+    "correct_index": 0,
+    "explanation": "The 'subagent_type' parameter tells the Task tool which specialized agent to launch, such as 'Explore', 'Bash', 'Plan', or 'general-purpose'."
+  },
+  {
+    "id": "agents-003",
+    "category": "agents",
+    "difficulty": 1,
+    "concept_intro": "The Bash agent is a command execution specialist. It's designed specifically for running bash commands, git operations, and other terminal tasks.",
+    "question_text": "What is the Bash agent specialized for?",
+    "options": [
+      "Running terminal commands and git operations",
+      "Searching through code files",
+      "Planning implementation strategies",
+      "Writing documentation"
+    ],
+    "correct_index": 0,
+    "explanation": "The Bash agent is a command execution specialist, perfect for git operations, running builds, executing scripts, and other terminal tasks."
+  },
+  {
+    "id": "agents-004",
+    "category": "agents",
+    "difficulty": 2,
+    "concept_intro": "When you need to run multiple independent searches, you can launch agents in parallel by including multiple Task tool calls in a single message. This is much faster than running them sequentially.",
+    "question_text": "How do you launch multiple agents in parallel?",
+    "options": [
+      "Include multiple Task tool calls in a single message",
+      "Use the 'parallel: true' parameter",
+      "Call the ParallelTask tool",
+      "Chain them with && operator"
+    ],
+    "correct_index": 0,
+    "explanation": "To run agents in parallel, you must include multiple Task tool calls in the same message. There is no special 'parallel' parameter - parallelism comes from batching the calls together."
+  },
+  {
+    "id": "agents-005",
+    "category": "agents",
+    "difficulty": 2,
+    "concept_intro": "The Plan agent is a software architect agent for designing implementation plans. It helps plan implementation strategy for tasks, returning step-by-step plans and identifying critical files.",
+    "question_text": "When should you use the Plan agent?",
+    "options": [
+      "When you need to design an implementation strategy",
+      "When you need to execute bash commands",
+      "When you need to search for specific files",
+      "When you need to write new code"
+    ],
+    "correct_index": 0,
+    "explanation": "The Plan agent is designed for architectural planning - it helps design implementation strategies, returns step-by-step plans, and considers trade-offs."
+  },
+  {
+    "id": "agents-006",
+    "category": "agents",
+    "difficulty": 2,
+    "concept_intro": "You can run agents in the background using the 'run_in_background' parameter. When an agent runs in the background, you can continue working while it processes.",
+    "code_snippet": "run_in_background: true",
+    "question_text": "What happens when you set run_in_background to true?",
+    "options": [
+      "The agent runs asynchronously while you continue working",
+      "The agent runs faster with higher priority",
+      "The agent uses less memory",
+      "The agent saves results to a database"
+    ],
+    "correct_index": 0,
+    "explanation": "Setting run_in_background to true runs the agent asynchronously. You'll get an output_file path in the result, and you can check progress with the Read tool while continuing other work."
+  },
+  {
+    "id": "agents-007",
+    "category": "agents",
+    "difficulty": 3,
+    "concept_intro": "Background agents write their output to a file. The tool result includes an output_file path. You can use the Read tool or 'tail' command to check progress while the agent works.",
+    "question_text": "After launching a background agent, how should you check its progress?",
+    "options": [
+      "Use the Read tool or Bash with 'tail' on the output_file",
+      "Call the GetAgentStatus tool with the agent ID",
+      "Background agents automatically notify you when done",
+      "Poll the Task tool with the same parameters"
+    ],
+    "correct_index": 0,
+    "explanation": "Background agents write to an output_file specified in the tool result. You can read this file with the Read tool or use 'tail' to see recent output while continuing other work."
+  },
+  {
+    "id": "agents-008",
+    "category": "agents",
+    "difficulty": 2,
+    "concept_intro": "The 'general-purpose' agent is a versatile agent for researching complex questions, searching for code, and executing multi-step tasks when you're not confident you'll find the right match quickly.",
+    "question_text": "When should you use the general-purpose agent over Explore?",
+    "options": [
+      "When searching and not confident you'll find the match quickly",
+      "When you need to run bash commands",
+      "When you need to create a plan",
+      "When you want to run tasks in parallel"
+    ],
+    "correct_index": 0,
+    "explanation": "Use the general-purpose agent when searching for something and you're not confident you'll find the right match in the first few tries. It can handle complex multi-step tasks."
+  },
+  {
+    "id": "agents-009",
+    "category": "agents",
+    "difficulty": 3,
+    "concept_intro": "Agents can be resumed using the 'resume' parameter by passing the agent ID from a previous invocation. When resumed, the agent continues with its full previous context preserved.",
+    "question_text": "How do you resume a previously run agent?",
+    "options": [
+      "Pass the agent ID to the 'resume' parameter",
+      "Call the ResumeAgent tool",
+      "Re-run with the same prompt",
+      "Use the 'continue: true' parameter"
+    ],
+    "correct_index": 0,
+    "explanation": "When an agent completes, it returns an agent ID. You can pass this ID to the 'resume' parameter to continue with the full previous context preserved."
+  },
+  {
+    "id": "agents-010",
+    "category": "agents",
+    "difficulty": 1,
+    "concept_intro": "When you need to find files by name patterns (like '*.tsx' or 'src/**/*.ts'), use the Glob tool directly instead of launching an Explore agent. It's faster for simple pattern matching.",
+    "question_text": "For finding files matching a simple pattern like '*.tsx', what should you use?",
+    "options": [
+      "The Glob tool directly",
+      "An Explore agent",
+      "A Bash agent running 'find'",
+      "A general-purpose agent"
+    ],
+    "correct_index": 0,
+    "explanation": "For simple file pattern matching, use the Glob tool directly - it's faster than launching an agent. Only use Explore for open-ended codebase exploration."
+  },
+  {
+    "id": "agents-011",
+    "category": "agents",
+    "difficulty": 2,
+    "concept_intro": "Each agent invocation starts fresh with no memory of previous runs unless you use the 'resume' parameter. When NOT resuming, provide detailed prompts with all necessary context.",
+    "question_text": "What happens when you launch a new agent without the resume parameter?",
+    "options": [
+      "It starts fresh with no memory of previous runs",
+      "It automatically loads the last conversation",
+      "It uses cached results from similar queries",
+      "It fails if there was a previous agent"
+    ],
+    "correct_index": 0,
+    "explanation": "Each new agent invocation starts fresh with no context from previous runs. Always provide detailed prompts with necessary context, or use 'resume' to continue a previous agent."
+  },
+  {
+    "id": "agents-012",
+    "category": "agents",
+    "difficulty": 3,
+    "concept_intro": "The Explore agent has different thoroughness levels: 'quick' for basic searches, 'medium' for moderate exploration, and 'very thorough' for comprehensive analysis across multiple locations.",
+    "question_text": "What thoroughness levels are available for the Explore agent?",
+    "options": [
+      "quick, medium, very thorough",
+      "fast, normal, deep",
+      "basic, standard, advanced",
+      "1, 2, 3"
+    ],
+    "correct_index": 0,
+    "explanation": "When calling the Explore agent, specify 'quick' for basic searches, 'medium' for moderate exploration, or 'very thorough' for comprehensive analysis."
+  },
+  {
+    "id": "agents-013",
+    "category": "agents",
+    "difficulty": 2,
+    "concept_intro": "Always include a short description (3-5 words) when launching agents. This helps track what each agent is doing and appears in task management.",
+    "question_text": "Why should you include a description when launching agents?",
+    "options": [
+      "To track what each agent is doing",
+      "To make agents run faster",
+      "To save memory usage",
+      "To enable parallel execution"
+    ],
+    "correct_index": 0,
+    "explanation": "Including a short description (3-5 words) helps track what each agent is doing and appears in task management, making it easier to monitor multiple agents."
+  },
+  {
+    "id": "agents-014",
+    "category": "agents",
+    "difficulty": 3,
+    "concept_intro": "The 'model' parameter lets you choose which model runs the agent. Use 'haiku' for quick, straightforward tasks to minimize cost and latency, or 'sonnet'/'opus' for complex work.",
+    "question_text": "When should you use the 'haiku' model for an agent?",
+    "options": [
+      "For quick, straightforward tasks to minimize cost",
+      "For the most accurate results",
+      "For tasks requiring deep reasoning",
+      "For parallel execution only"
+    ],
+    "correct_index": 0,
+    "explanation": "The 'haiku' model is best for quick, straightforward tasks where you want to minimize cost and latency. Use 'sonnet' or 'opus' for complex tasks requiring deeper reasoning."
+  },
+  {
+    "id": "agents-015",
+    "category": "agents",
+    "difficulty": 3,
+    "concept_intro": "Agent results are returned as a single message back to the main conversation. The result is not visible to the user directly - you need to summarize it for them.",
+    "question_text": "What should you do after receiving an agent's result?",
+    "options": [
+      "Summarize the result for the user in a text message",
+      "Let the agent display it automatically",
+      "Forward the raw output to the user",
+      "Nothing - results are automatically shown"
+    ],
+    "correct_index": 0,
+    "explanation": "Agent results are not visible to the user directly. You should send a text message with a concise summary of what the agent found or accomplished."
+  }
+]

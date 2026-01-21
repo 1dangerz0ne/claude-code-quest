@@ -1,0 +1,227 @@
+[
+  {
+    "id": "hooks-001",
+    "category": "hooks",
+    "difficulty": 1,
+    "concept_intro": "Hooks are shell commands that automatically execute in response to certain events in Claude Code. They let you customize behavior when specific things happen.",
+    "question_text": "What are hooks in Claude Code?",
+    "options": [
+      "Shell commands that execute in response to events",
+      "Keyboard shortcuts for common actions",
+      "Plugins that add new features",
+      "Configuration files for settings"
+    ],
+    "correct_index": 0,
+    "explanation": "Hooks are shell commands configured in settings that automatically run when specific events occur, like tool calls or prompt submissions."
+  },
+  {
+    "id": "hooks-002",
+    "category": "hooks",
+    "difficulty": 1,
+    "concept_intro": "The user-prompt-submit-hook runs when you submit a prompt to Claude. It can preprocess your input or run checks before Claude sees your message.",
+    "question_text": "When does the user-prompt-submit-hook run?",
+    "options": [
+      "When you submit a prompt to Claude",
+      "When Claude finishes responding",
+      "When you start Claude Code",
+      "When you close a file"
+    ],
+    "correct_index": 0,
+    "explanation": "The user-prompt-submit-hook executes when you submit a prompt, allowing preprocessing or checks before Claude receives your message."
+  },
+  {
+    "id": "hooks-003",
+    "category": "hooks",
+    "difficulty": 2,
+    "concept_intro": "Treat feedback from hooks (including <user-prompt-submit-hook>) as coming from the user. If a hook blocks an action, you should try to adjust or ask about configuration.",
+    "question_text": "How should you treat feedback from hooks?",
+    "options": [
+      "As coming from the user",
+      "As system errors to ignore",
+      "As warnings to log",
+      "As automatic retries"
+    ],
+    "correct_index": 0,
+    "explanation": "Treat hook feedback as user feedback. If a hook blocks an action, determine if you can adjust, and if not, ask the user to check their hooks configuration."
+  },
+  {
+    "id": "hooks-004",
+    "category": "hooks",
+    "difficulty": 2,
+    "concept_intro": "Hooks can trigger on tool calls, meaning they run when Claude tries to use certain tools. This lets you add validation, logging, or approval workflows.",
+    "question_text": "What can hooks trigger on?",
+    "options": [
+      "Tool calls and other events",
+      "Only file changes",
+      "Only bash commands",
+      "Only errors"
+    ],
+    "correct_index": 0,
+    "explanation": "Hooks can trigger on various events including tool calls. This enables validation, logging, approval workflows, and custom behavior."
+  },
+  {
+    "id": "hooks-005",
+    "category": "hooks",
+    "difficulty": 2,
+    "concept_intro": "When a hook blocks Claude's action, you should check if you can adjust your approach. If not, the user may need to update their hooks configuration.",
+    "question_text": "What should you do if a hook blocks your action?",
+    "options": [
+      "Try to adjust your approach or ask about hooks config",
+      "Force the action anyway",
+      "Disable hooks automatically",
+      "Report it as a bug"
+    ],
+    "correct_index": 0,
+    "explanation": "If a hook blocks an action, first try to adjust your approach based on the feedback. If that's not possible, ask the user to check their hooks configuration."
+  },
+  {
+    "id": "hooks-006",
+    "category": "hooks",
+    "difficulty": 2,
+    "concept_intro": "Hooks are configured in Claude Code settings. Users set up shell commands to run on specific triggers, customizing Claude's behavior for their workflow.",
+    "question_text": "Where are hooks configured?",
+    "options": [
+      "In Claude Code settings",
+      "In package.json",
+      "In .gitconfig",
+      "In the system PATH"
+    ],
+    "correct_index": 0,
+    "explanation": "Hooks are configured in Claude Code settings, where users specify shell commands to run on specific events or triggers."
+  },
+  {
+    "id": "hooks-007",
+    "category": "hooks",
+    "difficulty": 3,
+    "concept_intro": "A common use for hooks is auto-converting files. For example, a PDF hook can automatically convert PDFs to text when Claude tries to read them.",
+    "question_text": "What's an example use case for a file-reading hook?",
+    "options": [
+      "Auto-converting PDFs to text",
+      "Encrypting files automatically",
+      "Compressing large files",
+      "Sending files to cloud storage"
+    ],
+    "correct_index": 0,
+    "explanation": "A file-reading hook can auto-convert formats like PDFs to text, making them readable by Claude without manual conversion."
+  },
+  {
+    "id": "hooks-008",
+    "category": "hooks",
+    "difficulty": 3,
+    "concept_intro": "Hooks run as shell commands with the full capabilities of your system. This means they can access files, run programs, and make network calls.",
+    "question_text": "What can hook shell commands do?",
+    "options": [
+      "Access files, run programs, and make network calls",
+      "Only read configuration files",
+      "Only modify Claude's responses",
+      "Only log events to console"
+    ],
+    "correct_index": 0,
+    "explanation": "Hook shell commands have full system capabilities - they can access files, run any programs, and make network calls as your user account."
+  },
+  {
+    "id": "hooks-009",
+    "category": "hooks",
+    "difficulty": 2,
+    "concept_intro": "Hooks can be used to enforce coding standards by running linters or formatters before code is written. This ensures consistency automatically.",
+    "question_text": "How can hooks enforce coding standards?",
+    "options": [
+      "By running linters/formatters on code changes",
+      "By blocking all code changes",
+      "By requiring manual approval",
+      "By limiting file types"
+    ],
+    "correct_index": 0,
+    "explanation": "Hooks can run linters, formatters, or other validation tools automatically when code changes are made, enforcing standards without manual intervention."
+  },
+  {
+    "id": "hooks-010",
+    "category": "hooks",
+    "difficulty": 3,
+    "concept_intro": "The blocked message from a hook contains feedback about why the action was blocked. Use this feedback to understand what adjustment is needed.",
+    "question_text": "What information does a blocked hook message contain?",
+    "options": [
+      "Feedback about why the action was blocked",
+      "The original command that was run",
+      "The user's email address",
+      "System performance metrics"
+    ],
+    "correct_index": 0,
+    "explanation": "When a hook blocks an action, the message contains feedback explaining why. Use this to understand what adjustment is needed."
+  },
+  {
+    "id": "hooks-011",
+    "category": "hooks",
+    "difficulty": 3,
+    "concept_intro": "Hooks can implement approval workflows by pausing operations and waiting for user confirmation before proceeding with sensitive actions.",
+    "question_text": "How can hooks implement approval workflows?",
+    "options": [
+      "By pausing and waiting for user confirmation",
+      "By sending emails automatically",
+      "By creating backup copies",
+      "By logging to a database"
+    ],
+    "correct_index": 0,
+    "explanation": "Hooks can pause operations and require explicit user confirmation before proceeding, implementing approval workflows for sensitive actions."
+  },
+  {
+    "id": "hooks-012",
+    "category": "hooks",
+    "difficulty": 1,
+    "concept_intro": "Security is important with hooks since they run shell commands with your system permissions. Only configure hooks from trusted sources.",
+    "question_text": "Why is security important when configuring hooks?",
+    "options": [
+      "They run shell commands with your system permissions",
+      "They can see your passwords",
+      "They upload data to servers",
+      "They modify system files"
+    ],
+    "correct_index": 0,
+    "explanation": "Hooks run shell commands with your user's permissions, so they could potentially do anything you can do. Only use hooks from trusted sources."
+  },
+  {
+    "id": "hooks-013",
+    "category": "hooks",
+    "difficulty": 2,
+    "concept_intro": "Hooks can run before or after tool calls. Pre-hooks can validate or modify inputs, while post-hooks can process outputs or trigger follow-up actions.",
+    "question_text": "What's the difference between pre-hooks and post-hooks?",
+    "options": [
+      "Pre-hooks validate inputs, post-hooks process outputs",
+      "Pre-hooks are faster, post-hooks are slower",
+      "Pre-hooks are optional, post-hooks are required",
+      "Pre-hooks run locally, post-hooks run remotely"
+    ],
+    "correct_index": 0,
+    "explanation": "Pre-hooks run before tool execution to validate or modify inputs. Post-hooks run after to process outputs or trigger follow-up actions."
+  },
+  {
+    "id": "hooks-014",
+    "category": "hooks",
+    "difficulty": 3,
+    "concept_intro": "When writing custom hooks, consider error handling. A hook that fails silently could cause confusing behavior, while a hook that crashes could block all operations.",
+    "question_text": "Why is error handling important in hooks?",
+    "options": [
+      "Failed hooks can cause confusing behavior or block operations",
+      "Errors make hooks run faster",
+      "Error messages are shown to end users",
+      "Errors trigger automatic retries"
+    ],
+    "correct_index": 0,
+    "explanation": "Poor error handling in hooks can cause silent failures with confusing behavior, or crashes that block all operations. Handle errors explicitly."
+  },
+  {
+    "id": "hooks-015",
+    "category": "hooks",
+    "difficulty": 3,
+    "concept_intro": "Hooks should be lightweight and fast since they run on every matching event. Heavy processing in hooks can slow down Claude Code significantly.",
+    "question_text": "Why should hooks be lightweight?",
+    "options": [
+      "They run on every matching event and can slow things down",
+      "They use limited memory",
+      "They can only run one at a time",
+      "Heavy hooks are blocked by the system"
+    ],
+    "correct_index": 0,
+    "explanation": "Hooks run on every matching event, so heavy processing can significantly slow down Claude Code. Keep hooks fast and efficient."
+  }
+]
