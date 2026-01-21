@@ -10,7 +10,16 @@ import { XPGain } from "@/components/game/XPGain";
 import { Confetti } from "@/components/game/Confetti";
 import { FeedbackFlash } from "@/components/game/FeedbackFlash";
 import { LevelUpModal } from "@/components/game/LevelUpModal";
+import { ResultsScreen } from "@/components/game/ResultsScreen";
+import { AchievementModal } from "@/components/game/AchievementModal";
 import { ProgressBar } from "@/components/ui/ProgressBar";
+import {
+  buildAchievementContext,
+  checkAchievements,
+  getUserAchievements,
+  unlockAchievements,
+  type Achievement,
+} from "@/lib/achievements";
 import {
   getDailyQuestions,
   getTodayDateString,
@@ -56,6 +65,11 @@ export default function DailyChallengePage() {
   const [isSaving, setIsSaving] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showLevelUp, setShowLevelUp] = useState(false);
+
+  // Achievement state
+  const [newAchievements, setNewAchievements] = useState<Achievement[]>([]);
+  const [showAchievements, setShowAchievements] = useState(false);
+  const [questionSeed] = useState(() => Date.now());
 
   // Daily challenge date
   const todayDate = getTodayDateString();
@@ -128,6 +142,44 @@ export default function DailyChallengePage() {
       setShowLevelUp(true);
     }
   }, [saveResult]);
+
+  // Check for achievements after game save
+  useEffect(() => {
+    if (saveResult && isLoggedIn) {
+      const checkAndUnlockAchievements = async () => {
+        const supabase = createClient();
+        const { data: { user } } = await supabase.auth.getUser();
+        if (!user) return;
+
+        const { correctCount, maxCombo } = calculateSessionScore(answers);
+        const isPerfect = correctCount === questions.length;
+
+        // Build context and get already unlocked
+        const context = await buildAchievementContext(user.id, {
+          maxCombo,
+          fastAnswers: answers.filter((a) => a.timeSeconds < 3).length,
+          isPerfect,
+        });
+
+        const userAchievements = await getUserAchievements(user.id);
+        const alreadyUnlocked = userAchievements.map((ua) => ua.achievement_id);
+
+        // Check for new achievements
+        const newIds = checkAchievements(context, alreadyUnlocked);
+
+        if (newIds.length > 0) {
+          // Unlock and get achievement details
+          const result = await unlockAchievements(user.id, newIds);
+          if (result.achievements.length > 0) {
+            setNewAchievements(result.achievements);
+            setTimeout(() => setShowAchievements(true), saveResult.leveledUp ? 2000 : 500);
+          }
+        }
+      };
+
+      checkAndUnlockAchievements();
+    }
+  }, [saveResult, isLoggedIn, answers, questions.length]);
 
   const currentQuestion = questions[currentIndex];
 
@@ -204,108 +256,42 @@ export default function DailyChallengePage() {
 
   // Game complete screen
   if (phase === "complete") {
-    const { correctCount, maxCombo } = calculateSessionScore(answers);
+    const { correctCount, maxCombo, avgTime } = calculateSessionScore(answers);
     const totalTimeSeconds = Math.round((Date.now() - gameStartTime) / 1000);
-    const accuracy = Math.round((correctCount / questions.length) * 100);
 
     return (
-      <main className="min-h-screen flex flex-col p-6">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          className="flex-1 flex flex-col items-center justify-center text-center"
-        >
-          {/* Result icon */}
-          <div className="text-6xl mb-4">
-            {accuracy >= 80 ? "🏆" : accuracy >= 60 ? "🎯" : "💪"}
-          </div>
+      <>
+        <ResultsScreen
+          totalXP={totalXP}
+          correctCount={correctCount}
+          totalQuestions={questions.length}
+          maxCombo={maxCombo}
+          avgTime={avgTime}
+          timeSeconds={totalTimeSeconds}
+          mode="daily"
+          userXP={saveResult?.profile?.xp || 0}
+          streak={saveResult?.profile?.daily_streak || 0}
+          onPlayAgain={() => window.location.href = "/quick"}
+          isGuest={!isLoggedIn}
+          questionSeed={questionSeed}
+        />
 
-          <h1 className="text-3xl font-bold mb-2">Daily Challenge Complete!</h1>
-          <p className="text-slate-400 mb-2">{todayDate}</p>
+        {/* Achievement Modal */}
+        <AchievementModal
+          show={showAchievements}
+          achievements={newAchievements}
+          totalXP={newAchievements.reduce((sum, a) => sum + (a.xp_reward || 0), 0)}
+          onClose={() => setShowAchievements(false)}
+        />
 
-          {/* Stats grid */}
-          <div className="grid grid-cols-2 gap-4 w-full max-w-sm my-8">
-            <div className="bg-slate-800 rounded-xl p-4 text-center">
-              <p className="text-3xl font-bold text-yellow-400">{totalXP}</p>
-              <p className="text-slate-400 text-sm">XP Earned</p>
-            </div>
-            <div className="bg-slate-800 rounded-xl p-4 text-center">
-              <p className="text-3xl font-bold text-green-400">{accuracy}%</p>
-              <p className="text-slate-400 text-sm">Accuracy</p>
-            </div>
-            <div className="bg-slate-800 rounded-xl p-4 text-center">
-              <p className="text-3xl font-bold text-orange-400">{maxCombo}</p>
-              <p className="text-slate-400 text-sm">Max Combo</p>
-            </div>
-            <div className="bg-slate-800 rounded-xl p-4 text-center">
-              <p className="text-3xl font-bold text-blue-400">
-                {Math.floor(totalTimeSeconds / 60)}:
-                {String(totalTimeSeconds % 60).padStart(2, "0")}
-              </p>
-              <p className="text-slate-400 text-sm">Total Time</p>
-            </div>
-          </div>
-
-          {/* Score bar */}
-          <div className="w-full max-w-sm mb-8">
-            <div className="flex justify-between text-sm text-slate-400 mb-1">
-              <span>Score</span>
-              <span>
-                {correctCount}/{questions.length} correct
-              </span>
-            </div>
-            <ProgressBar
-              value={correctCount}
-              max={questions.length}
-              color="green"
-              size="lg"
-            />
-          </div>
-
-          {/* Leaderboard prompt */}
-          <div className="bg-slate-800 rounded-xl p-4 mb-6 w-full max-w-sm">
-            <p className="text-sm text-slate-300 mb-3">
-              Check how you rank against other players!
-            </p>
-            <Link
-              href="/leaderboard"
-              className="block w-full py-3 bg-orange-600 hover:bg-orange-500 rounded-lg text-center font-medium transition-colors"
-            >
-              View Leaderboard
-            </Link>
-          </div>
-
-          {/* Action buttons */}
-          <div className="flex flex-col gap-3 w-full max-w-sm">
-            <ShareButton
-              result={{
-                answers: answers.map((a) => a.correct),
-                totalXP,
-                maxCombo,
-                mode: "daily",
-                date: todayDate,
-              }}
-            />
-            <Link
-              href="/quick"
-              className="w-full py-4 bg-blue-600 hover:bg-blue-500 rounded-xl text-lg font-semibold text-center transition-colors"
-            >
-              Play Quick Mode
-            </Link>
-            <Link
-              href="/play"
-              className="w-full py-4 bg-slate-800 hover:bg-slate-700 rounded-xl text-lg font-semibold text-center transition-colors"
-            >
-              Back to Menu
-            </Link>
-          </div>
-
-          {/* Come back tomorrow */}
-          <p className="text-slate-500 text-sm mt-6">
-            New daily challenge tomorrow! 🗓️
-          </p>
-        </motion.div>
-      </main>
+        {/* Level up celebration */}
+        <LevelUpModal
+          show={showLevelUp}
+          level={saveResult?.newLevel || 1}
+          title={saveResult?.newTitle || "Newcomer"}
+          onClose={() => setShowLevelUp(false)}
+        />
+      </>
     );
   }
 

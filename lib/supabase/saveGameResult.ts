@@ -28,6 +28,13 @@ export interface SaveResult {
   newTitle?: string;
   newStreak?: number;
   error?: string;
+  profile?: {
+    xp: number;
+    level: number;
+    daily_streak: number;
+    games_played: number;
+    perfect_games: number;
+  };
 }
 
 /**
@@ -200,12 +207,26 @@ export async function saveGameResult(
       }
     }
 
+    // Get updated profile for return
+    const { data: updatedProfile } = await supabase
+      .from("profiles")
+      .select("xp, level, daily_streak, games_played, perfect_games")
+      .eq("id", user.id)
+      .single();
+
     return {
       success: true,
       leveledUp: levelUpResult !== null,
       newLevel: levelUpResult?.newLevel,
       newTitle: levelUpResult?.newTitle,
       newStreak: data.mode === "daily" ? newStreak : undefined,
+      profile: updatedProfile ? {
+        xp: updatedProfile.xp || 0,
+        level: updatedProfile.level || 1,
+        daily_streak: updatedProfile.daily_streak || 0,
+        games_played: updatedProfile.games_played || 0,
+        perfect_games: updatedProfile.perfect_games || 0,
+      } : undefined,
     };
   } catch (err) {
     console.error("Unexpected error saving game result:", err);

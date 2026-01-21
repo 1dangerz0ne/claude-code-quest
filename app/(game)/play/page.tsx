@@ -1,5 +1,8 @@
 import { createClient } from "@/lib/supabase/server";
 import Link from "next/link";
+import { Avatar } from "@/components/game/Avatar";
+import { CategoryMastery } from "@/components/game/CategoryMastery";
+import { ReferralCard } from "@/components/game/ReferralCard";
 
 export default async function PlayPage() {
   const supabase = await createClient();
@@ -9,6 +12,7 @@ export default async function PlayPage() {
 
   // Fetch user profile if logged in
   let profile = null;
+  let categoryProgress: { category: string; correct: number; total: number }[] = [];
   if (user) {
     const { data } = await supabase
       .from("profiles")
@@ -16,21 +20,37 @@ export default async function PlayPage() {
       .eq("id", user.id)
       .single();
     profile = data;
+
+    // Fetch category progress
+    const { data: progress } = await supabase
+      .from("category_progress")
+      .select("category, correct, total")
+      .eq("user_id", user.id);
+    categoryProgress = progress || [];
   }
 
   return (
     <main className="min-h-screen flex flex-col p-6">
       {/* Header with user info */}
       <header className="flex justify-between items-center mb-8">
-        <div>
-          {profile ? (
-            <div>
-              <p className="text-slate-400 text-sm">Welcome back,</p>
-              <p className="font-semibold">{profile.username || user?.email}</p>
-            </div>
-          ) : (
-            <p className="text-slate-400">Playing as guest</p>
+        <div className="flex items-center gap-4">
+          {profile && (
+            <Avatar
+              xp={profile.xp || 0}
+              size="sm"
+              showTier={false}
+            />
           )}
+          <div>
+            {profile ? (
+              <div>
+                <p className="text-slate-400 text-sm">Welcome back,</p>
+                <p className="font-semibold">{profile.username || user?.email}</p>
+              </div>
+            ) : (
+              <p className="text-slate-400">Playing as guest</p>
+            )}
+          </div>
         </div>
         {profile && (
           <Link
@@ -113,11 +133,14 @@ export default async function PlayPage() {
       {profile && (
         <div className="mt-8">
           <h2 className="text-xl font-bold mb-4">Your Progress</h2>
-          <div className="space-y-3">
-            <CategoryProgress category="Agents" progress={0} total={15} />
-            <CategoryProgress category="Commands" progress={0} total={15} />
-            <CategoryProgress category="Hooks" progress={0} total={15} />
-          </div>
+          <CategoryMastery progress={categoryProgress} />
+        </div>
+      )}
+
+      {/* Referral card (if logged in) */}
+      {profile && (
+        <div className="mt-8">
+          <ReferralCard />
         </div>
       )}
 
@@ -150,35 +173,5 @@ export default async function PlayPage() {
         </Link>
       </nav>
     </main>
-  );
-}
-
-// Category progress component
-function CategoryProgress({
-  category,
-  progress,
-  total,
-}: {
-  category: string;
-  progress: number;
-  total: number;
-}) {
-  const percentage = total > 0 ? (progress / total) * 100 : 0;
-
-  return (
-    <div className="bg-slate-800 rounded-xl p-4">
-      <div className="flex justify-between items-center mb-2">
-        <span className="font-medium">{category}</span>
-        <span className="text-slate-400 text-sm">
-          {progress}/{total}
-        </span>
-      </div>
-      <div className="h-2 bg-slate-700 rounded-full overflow-hidden">
-        <div
-          className="h-full bg-green-500 transition-all duration-300"
-          style={{ width: `${percentage}%` }}
-        />
-      </div>
-    </div>
   );
 }

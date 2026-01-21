@@ -3,6 +3,10 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import { getLevelFromXP, LEVEL_THRESHOLDS } from "@/lib/game/scoring";
 import { ProgressBar } from "@/components/ui/ProgressBar";
+import { Avatar } from "@/components/game/Avatar";
+import { AchievementBadge } from "@/components/game/AchievementBadge";
+import { CategoryMastery, OverallMastery } from "@/components/game/CategoryMastery";
+import { type Achievement } from "@/lib/achievements";
 
 export default async function ProfilePage() {
   const supabase = await createClient();
@@ -36,14 +40,38 @@ export default async function ProfilePage() {
     .order("completed_at", { ascending: false })
     .limit(5);
 
+  // Fetch user achievements
+  const { data: userAchievements } = await supabase
+    .from("user_achievements")
+    .select(`
+      achievement_id,
+      unlocked_at,
+      achievements (*)
+    `)
+    .eq("user_id", user.id);
+
+  // Fetch all achievements for display
+  const { data: allAchievements } = await supabase
+    .from("achievements")
+    .select("*")
+    .order("category", { ascending: true });
+
   const levelInfo = profile ? getLevelFromXP(profile.xp || 0) : null;
+
+  // Map unlocked achievements
+  const unlockedIds = new Set(userAchievements?.map((ua) => ua.achievement_id) || []);
+  const achievementsWithStatus = (allAchievements || []).map((a) => ({
+    ...a,
+    unlocked: unlockedIds.has(a.id),
+    unlockedAt: userAchievements?.find((ua) => ua.achievement_id === a.id)?.unlocked_at,
+  }));
 
   // Calculate category stats
   const categories = ["agents", "commands", "hooks"];
   const categoryStats = categories.map((cat) => {
     const progress = categoryProgress?.find((p) => p.category === cat);
     return {
-      name: cat,
+      category: cat,
       correct: progress?.correct || 0,
       total: progress?.total || 0,
     };
@@ -62,19 +90,20 @@ export default async function ProfilePage() {
         </Link>
       </header>
 
-      {/* User info */}
+      {/* User info with Avatar */}
       <div className="bg-slate-800 rounded-2xl p-6 mb-6">
-        <div className="flex items-center gap-4 mb-4">
-          {/* Avatar placeholder */}
-          <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center text-2xl font-bold">
-            {(profile?.username || user.email || "?")[0].toUpperCase()}
-          </div>
-          <div>
-            <h2 className="text-xl font-bold">
-              {profile?.username || user.email}
-            </h2>
-            <p className="text-slate-400">{levelInfo?.title || "Newcomer"}</p>
-          </div>
+        <div className="flex flex-col items-center mb-4">
+          {/* Avatar */}
+          <Avatar
+            xp={profile?.xp || 0}
+            size="lg"
+            showTier={true}
+            showProgress={true}
+          />
+          <h2 className="text-xl font-bold mt-4">
+            {profile?.username || user.email}
+          </h2>
+          <p className="text-slate-400">{levelInfo?.title || "Newcomer"}</p>
         </div>
 
         {/* Level progress */}
@@ -127,35 +156,33 @@ export default async function ProfilePage() {
         </div>
       </div>
 
+      {/* Overall Mastery */}
+      <div className="mb-6">
+        <OverallMastery progress={categoryStats} />
+      </div>
+
       {/* Category progress */}
       <div className="mb-6">
         <h3 className="text-lg font-semibold mb-3">Category Progress</h3>
-        <div className="space-y-3">
-          {categoryStats.map((cat) => {
-            const percentage =
-              cat.total > 0
-                ? Math.round((cat.correct / cat.total) * 100)
-                : 0;
-            return (
-              <div key={cat.name} className="bg-slate-800 rounded-xl p-4">
-                <div className="flex justify-between items-center mb-2">
-                  <span className="font-medium capitalize">{cat.name}</span>
-                  <span className="text-slate-400 text-sm">
-                    {percentage}% accuracy
-                  </span>
-                </div>
-                <ProgressBar
-                  value={cat.correct}
-                  max={Math.max(cat.total, 1)}
-                  color="green"
-                  size="sm"
-                />
-                <p className="text-slate-500 text-xs mt-1">
-                  {cat.correct} correct out of {cat.total} attempts
-                </p>
-              </div>
-            );
-          })}
+        <CategoryMastery progress={categoryStats} />
+      </div>
+
+      {/* Achievements */}
+      <div className="mb-6">
+        <h3 className="text-lg font-semibold mb-3">
+          Achievements ({unlockedIds.size}/{achievementsWithStatus.length})
+        </h3>
+        <div className="grid grid-cols-4 sm:grid-cols-5 gap-3">
+          {achievementsWithStatus.map((achievement) => (
+            <AchievementBadge
+              key={achievement.id}
+              achievement={achievement as Achievement}
+              unlocked={achievement.unlocked}
+              unlockedAt={achievement.unlockedAt}
+              size="sm"
+              showDetails={false}
+            />
+          ))}
         </div>
       </div>
 

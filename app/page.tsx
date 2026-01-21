@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { getGlobalStats } from "@/lib/stats";
+import { LiveCounter } from "@/components/game/LiveCounter";
 
 export default function HomePage() {
   const [stats, setStats] = useState({ totalPlayers: 0, totalGames: 0, todayPlayers: 0 });
@@ -46,7 +47,7 @@ export default function HomePage() {
 
       {/* Social Proof - Player Count */}
       {!loading && stats.totalPlayers > 0 && (
-        <div className="mb-8 text-center">
+        <div className="mb-4 text-center">
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-slate-800/50 rounded-full border border-slate-700">
             <span className="text-green-400">●</span>
             <span className="text-slate-300">
@@ -55,6 +56,11 @@ export default function HomePage() {
           </div>
         </div>
       )}
+
+      {/* Live Counter */}
+      <div className="mb-8">
+        <LiveCounter />
+      </div>
 
       {/* Main Actions */}
       <div className="w-full max-w-sm flex flex-col gap-4">

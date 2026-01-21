@@ -128,7 +128,7 @@ Required in `.env.local`:
   - Supabase persistence (`lib/supabase/saveGameResult.ts`)
   - Level-up celebration modal (`LevelUpModal.tsx`)
   - Social proof elements (`lib/stats.ts`)
-- [x] **Viral Features V2 (NEW):**
+- [x] **Viral Features V2:**
   - Achievement/Badge system with 25 achievements (`lib/achievements.ts`, `AchievementBadge.tsx`, `AchievementModal.tsx`)
   - Avatar with upgradeable equipment - 3 armor/weapon/shield styles x 5 tiers (`lib/avatar.ts`, `Avatar.tsx`)
   - Challenge a Friend - shareable challenge codes (`lib/challenges.ts`, `ChallengeButton.tsx`, `/challenge/[code]`)
@@ -137,68 +137,50 @@ Required in `.env.local`:
   - Enhanced screenshot-worthy results screen (`ResultsScreen.tsx`)
   - Referral system with bonus XP (`lib/referrals.ts`, `ReferralCard.tsx`)
   - "Share this tip" on every explanation (`LearnedShare.tsx`)
+- [x] **Database migrations** - Run `supabase/schema_clean.sql` in Supabase SQL Editor (DONE)
+- [x] **Components wired into pages:**
+  - Home Page: LiveCounter added
+  - Play Menu: Avatar, CategoryMastery, ReferralCard added
+  - Quick Play: ResultsScreen, AchievementModal with full achievement checking
+  - Daily Challenge: ResultsScreen, AchievementModal with full achievement checking
+  - Profile: Avatar, AchievementBadge grid, CategoryMastery, OverallMastery
 - [x] GitHub repo: https://github.com/1dangerz0ne/claude-code-quest
 
 ### What's Next
 
-#### Step 1: Run Database Migrations
-Run the updated `supabase/schema.sql` in your Supabase SQL Editor to create:
-- `achievements` table with 25 pre-seeded achievements
-- `user_achievements` table for tracking unlocks
-- `challenges` and `challenge_attempts` tables for friend challenges
-- `activity_log` table for live counter
-- New profile columns: `referral_code`, `referred_by`, `avatar_armor`, `games_played`, etc.
+#### Step 1: Add Sound Files (NOT WORKING YET)
+Sound system exists but audio files are missing. Add these .mp3 files to `public/sounds/`:
+- `tap.mp3` - Button tap feedback
+- `correct.mp3` - Correct answer
+- `wrong.mp3` - Wrong answer
+- `combo.mp3` - Combo milestone
+- `levelup.mp3` - Level up celebration
+- `streak.mp3` - Streak achieved
 
-#### Step 2: Wire New Components into Existing Pages
+You can source free game sounds from:
+- https://freesound.org
+- https://mixkit.co/free-sound-effects/game/
 
-**Home Page (`app/page.tsx`):**
-```tsx
-import { LiveCounter } from "@/components/game/LiveCounter";
-// Add <LiveCounter /> next to the social proof section
+#### Step 2: Fix Avatar Display
+Avatar component is wired up but may not be rendering visibly. Possible issues:
+- Needs user to be logged in with XP > 0
+- SVG rendering issue on mobile
+- Check `components/game/Avatar.tsx` and `lib/avatar.ts`
+
+#### Step 3: Configure Google OAuth
+1. Go to Supabase Dashboard → Authentication → Providers
+2. Enable Google provider
+3. Add Google OAuth credentials (from Google Cloud Console)
+4. Set redirect URL in Google Console
+
+#### Step 4: Deploy to Railway
+```bash
+# In Railway dashboard, add environment variables:
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_anon_key
 ```
 
-**Play Menu (`app/(game)/play/page.tsx`):**
-```tsx
-import { Avatar } from "@/components/game/Avatar";
-import { CategoryMastery } from "@/components/game/CategoryMastery";
-import { ReferralCard } from "@/components/game/ReferralCard";
-// Add Avatar component showing user's equipment
-// Replace category stats with CategoryMastery component
-// Add ReferralCard at bottom of page
-```
-
-**Quick Play Results (`app/(game)/quick/page.tsx`):**
-```tsx
-import { ResultsScreen } from "@/components/game/ResultsScreen";
-import { AchievementModal } from "@/components/game/AchievementModal";
-// Replace the complete phase JSX with ResultsScreen component
-// Add achievement checking after game save
-// Show AchievementModal when new badges unlock
-```
-
-**Daily Challenge (`app/(game)/daily/page.tsx`):**
-```tsx
-// Same integration as Quick Play
-// Add streak display from ResultsScreen
-```
-
-**Profile Page (`app/(game)/profile/page.tsx`):**
-```tsx
-import { Avatar } from "@/components/game/Avatar";
-import { AchievementBadge } from "@/components/game/AchievementBadge";
-import { CategoryMastery, OverallMastery } from "@/components/game/CategoryMastery";
-// Show Avatar with equipment selection
-// Display unlocked achievements grid
-// Add OverallMastery component
-```
-
-#### Step 3: Environment & Deploy
-- Add sound files to `public/sounds/` (tap, correct, wrong, combo, levelup, streak .mp3)
-- Configure Google OAuth in Supabase dashboard
-- Deploy to Railway with env vars: `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`
-- Test challenge flow: create challenge → share link → friend plays → compare results
-
-#### Step 4: Future Enhancements
+#### Future Enhancements
 - Equipment selection UI (let users choose armor/weapon/shield style)
 - Achievement progress tracking (show "3/5 perfect games" progress)
 - Push notifications for streak reminders
