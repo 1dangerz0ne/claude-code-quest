@@ -145,10 +145,34 @@ Required in `.env.local`:
   - Daily Challenge: ResultsScreen, AchievementModal with full achievement checking
   - Profile: Avatar, AchievementBadge grid, CategoryMastery, OverallMastery
 - [x] GitHub repo: https://github.com/1dangerz0ne/claude-code-quest
+- [x] **Expanded Question Bank (2026-01-21):**
+  - Added 15 new Commands questions (16-30): ! prefix, Escape vs Ctrl+C, ultrathink, -p flag, etc.
+  - Added 10 new Agents questions (16-25): Skills system, SKILL.md, context fork, git worktrees
+  - Created new **Config** category with 15 questions: CLAUDE.md best practices, context management, MCP config
+  - Total questions expanded from 45 to 85 (4 categories now)
+- [x] **Equipment Selection UI (2026-01-21):**
+  - Created `/equipment` page for customizing avatar loadout
+  - `EquipmentSelector.tsx` component with visual preview
+  - Database migration: added `loadout` JSONB column to profiles
+  - Avatar visible on Play page (clickable to customize) and Profile page
+  - Fixed home page links (Daily Streaks, Quick Play, Leaderboard now clickable)
+- [x] **Deployed to Railway (2026-01-21):**
+  - Live URL: https://claude-code-quest-production.up.railway.app
+  - Railway project: claude-code-quest
+  - Environment variables configured
+  - Port: 8080 (auto-detected by Railway)
 
 ### What's Next
 
-#### Step 1: Add Sound Files (NOT WORKING YET)
+#### Step 1: Fix Google OAuth
+Google login button exists but OAuth isn't configured yet:
+1. Go to Supabase Dashboard → Authentication → Providers
+2. Enable Google provider
+3. Create OAuth credentials in Google Cloud Console
+4. Add redirect URL: `https://mqgthsnkqwbtqkeycyef.supabase.co/auth/v1/callback`
+5. Add Railway URL to Supabase redirect URLs: `https://claude-code-quest-production.up.railway.app/**`
+
+#### Step 2: Add Sound Files (NOT WORKING YET)
 Sound system exists but audio files are missing. Add these .mp3 files to `public/sounds/`:
 - `tap.mp3` - Button tap feedback
 - `correct.mp3` - Correct answer
@@ -161,27 +185,7 @@ You can source free game sounds from:
 - https://freesound.org
 - https://mixkit.co/free-sound-effects/game/
 
-#### Step 2: Fix Avatar Display
-Avatar component is wired up but may not be rendering visibly. Possible issues:
-- Needs user to be logged in with XP > 0
-- SVG rendering issue on mobile
-- Check `components/game/Avatar.tsx` and `lib/avatar.ts`
-
-#### Step 3: Configure Google OAuth
-1. Go to Supabase Dashboard → Authentication → Providers
-2. Enable Google provider
-3. Add Google OAuth credentials (from Google Cloud Console)
-4. Set redirect URL in Google Console
-
-#### Step 4: Deploy to Railway
-```bash
-# In Railway dashboard, add environment variables:
-NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your_anon_key
-```
-
 #### Future Enhancements
-- Equipment selection UI (let users choose armor/weapon/shield style)
 - Achievement progress tracking (show "3/5 perfect games" progress)
 - Push notifications for streak reminders
 - Weekly tournaments with prizes
@@ -196,6 +200,6 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=your_anon_key
 
 ### Known Limitations (MVP)
 - Google OAuth only (no email/password)
-- 3 categories only (Agents, Commands, Hooks)
-- 45 questions total
+- 4 categories (Agents, Commands, Hooks, Config)
+- 85 questions total
 - No offline support

@@ -2,7 +2,7 @@
 
 export interface Question {
   id: string;
-  category: "agents" | "commands" | "hooks";
+  category: "agents" | "commands" | "hooks" | "config";
   difficulty: 1 | 2 | 3;
   concept_intro: string;
   code_snippet?: string;
@@ -16,6 +16,7 @@ export interface Question {
 import agentsQuestions from "@/content/questions/agents.json";
 import commandsQuestions from "@/content/questions/commands.json";
 import hooksQuestions from "@/content/questions/hooks.json";
+import configQuestions from "@/content/questions/config.json";
 
 // Get all questions
 export function getAllQuestions(): Question[] {
@@ -23,12 +24,13 @@ export function getAllQuestions(): Question[] {
     ...(agentsQuestions as Question[]),
     ...(commandsQuestions as Question[]),
     ...(hooksQuestions as Question[]),
+    ...(configQuestions as Question[]),
   ];
 }
 
 // Get questions by category
 export function getQuestionsByCategory(
-  category: "agents" | "commands" | "hooks"
+  category: "agents" | "commands" | "hooks" | "config"
 ): Question[] {
   const all = getAllQuestions();
   return all.filter((q) => q.category === category);

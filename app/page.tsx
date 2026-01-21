@@ -92,34 +92,46 @@ export default function HomePage() {
         </div>
       )}
 
-      {/* Features Preview */}
+      {/* Features Preview - Clickable Links */}
       <div className="mt-12 grid grid-cols-3 gap-4 text-center max-w-sm w-full">
-        <div>
+        <Link
+          href="/daily"
+          className="p-3 rounded-xl hover:bg-slate-800 transition-colors"
+        >
           <div className="text-2xl mb-1">🔥</div>
           <div className="text-sm text-slate-400">Daily Streaks</div>
-        </div>
-        <div>
+        </Link>
+        <Link
+          href="/quick"
+          className="p-3 rounded-xl hover:bg-slate-800 transition-colors"
+        >
           <div className="text-2xl mb-1">⚡</div>
           <div className="text-sm text-slate-400">Quick Play</div>
-        </div>
-        <div>
+        </Link>
+        <Link
+          href="/leaderboard"
+          className="p-3 rounded-xl hover:bg-slate-800 transition-colors"
+        >
           <div className="text-2xl mb-1">🏆</div>
           <div className="text-sm text-slate-400">Leaderboard</div>
-        </div>
+        </Link>
       </div>
 
       {/* Categories */}
       <div className="mt-12 text-center">
         <p className="text-slate-500 text-sm mb-3">Learn about</p>
         <div className="flex gap-2 flex-wrap justify-center">
-          <span className="px-3 py-1 bg-slate-800 rounded-full text-sm">
-            Agents
+          <span className="px-3 py-1 bg-purple-900/50 border border-purple-500/30 rounded-full text-sm text-purple-300">
+            🤖 Agents
           </span>
-          <span className="px-3 py-1 bg-slate-800 rounded-full text-sm">
-            Commands
+          <span className="px-3 py-1 bg-blue-900/50 border border-blue-500/30 rounded-full text-sm text-blue-300">
+            ⌨️ Commands
           </span>
-          <span className="px-3 py-1 bg-slate-800 rounded-full text-sm">
-            Hooks
+          <span className="px-3 py-1 bg-orange-900/50 border border-orange-500/30 rounded-full text-sm text-orange-300">
+            🪝 Hooks
+          </span>
+          <span className="px-3 py-1 bg-emerald-900/50 border border-emerald-500/30 rounded-full text-sm text-emerald-300">
+            ⚙️ Config
           </span>
         </div>
       </div>

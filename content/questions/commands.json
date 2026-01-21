@@ -224,5 +224,234 @@
     ],
     "correct_index": 0,
     "explanation": "For GitHub URLs, use the gh CLI (e.g., gh pr view, gh issue view) instead of WebFetch. It provides better GitHub integration."
+  },
+  {
+    "id": "commands-016",
+    "category": "commands",
+    "difficulty": 1,
+    "concept_intro": "The exclamation mark prefix (!) lets you run bash commands instantly without Claude processing them. This saves tokens and time for simple commands.",
+    "code_snippet": "!git status",
+    "question_text": "What does prefixing a command with '!' do?",
+    "options": [
+      "Executes bash directly without token cost",
+      "Runs the command with elevated privileges",
+      "Marks the command as high priority",
+      "Skips confirmation prompts"
+    ],
+    "correct_index": 0,
+    "explanation": "The ! prefix executes bash commands directly without using Claude's tokens. Type !git status instead of asking Claude to run it - faster and cheaper."
+  },
+  {
+    "id": "commands-017",
+    "category": "commands",
+    "difficulty": 1,
+    "concept_intro": "To stop Claude while it's working, press Escape. Don't use Ctrl+C - that exits Claude Code entirely. Escape interrupts the current operation while keeping your session alive.",
+    "question_text": "How do you stop Claude mid-response without exiting?",
+    "options": [
+      "Press Escape",
+      "Press Ctrl+C",
+      "Press Ctrl+Z",
+      "Type /stop"
+    ],
+    "correct_index": 0,
+    "explanation": "Escape interrupts Claude while preserving your session. Ctrl+C exits Claude Code entirely. Use Escape to redirect Claude's work without losing context."
+  },
+  {
+    "id": "commands-018",
+    "category": "commands",
+    "difficulty": 2,
+    "concept_intro": "Double-tapping Escape lets you jump back in the conversation history. You can edit previous prompts and explore alternative directions without starting over.",
+    "question_text": "What does double-tapping Escape do?",
+    "options": [
+      "Jumps back to edit previous prompts",
+      "Clears the current message",
+      "Exits Claude Code",
+      "Toggles auto-accept mode"
+    ],
+    "correct_index": 0,
+    "explanation": "Double-tap Escape to revisit conversation history, edit earlier prompts, and explore different approaches. It's like a rewind button for your session."
+  },
+  {
+    "id": "commands-019",
+    "category": "commands",
+    "difficulty": 2,
+    "concept_intro": "On Mac, paste images with Ctrl+V, not Cmd+V. This is a common gotcha - the standard Mac paste shortcut won't work for images in Claude Code.",
+    "question_text": "On Mac, how do you paste an image into Claude Code?",
+    "options": [
+      "Ctrl+V",
+      "Cmd+V",
+      "Cmd+Shift+V",
+      "Right-click and paste"
+    ],
+    "correct_index": 0,
+    "explanation": "Use Ctrl+V (not Cmd+V) to paste images on Mac. This catches many users off guard since it's different from the standard Mac paste shortcut."
+  },
+  {
+    "id": "commands-020",
+    "category": "commands",
+    "difficulty": 2,
+    "concept_intro": "The -p flag runs Claude Code in headless/pipe mode. This is perfect for CI/CD pipelines, automation scripts, and non-interactive use cases.",
+    "code_snippet": "claude -p \"Fix all TypeScript errors\"",
+    "question_text": "What is the -p flag used for?",
+    "options": [
+      "Running Claude in headless/pipe mode for scripts",
+      "Enabling plan mode",
+      "Preserving conversation history",
+      "Setting project path"
+    ],
+    "correct_index": 0,
+    "explanation": "The -p flag enables headless mode for automation. Use it in CI/CD pipelines, pre-commit hooks, or any script that needs Claude without an interactive terminal."
+  },
+  {
+    "id": "commands-021",
+    "category": "commands",
+    "difficulty": 3,
+    "concept_intro": "Claude has 'thinking' keywords that allocate more computation budget. Use 'think' for light reasoning, 'think hard' for more, or 'ultrathink' for maximum problem-solving power.",
+    "question_text": "Which keyword gives Claude the maximum thinking budget?",
+    "options": [
+      "ultrathink",
+      "think harder",
+      "deep think",
+      "maximum think"
+    ],
+    "correct_index": 0,
+    "explanation": "Use 'ultrathink' for maximum computation budget (32K tokens). The scale is: 'think' (4K) → 'think hard' (10K) → 'ultrathink' (32K). Great for complex problems."
+  },
+  {
+    "id": "commands-022",
+    "category": "commands",
+    "difficulty": 1,
+    "concept_intro": "The /terminal-setup command fixes Shift+Enter for multiline input. Run it once to configure your terminal properly.",
+    "question_text": "What does /terminal-setup fix?",
+    "options": [
+      "Enables Shift+Enter for new lines",
+      "Installs terminal themes",
+      "Configures PATH variables",
+      "Sets up shell aliases"
+    ],
+    "correct_index": 0,
+    "explanation": "Run /terminal-setup once to enable Shift+Enter for multiline input. Without it, Shift+Enter might not work correctly in your terminal."
+  },
+  {
+    "id": "commands-023",
+    "category": "commands",
+    "difficulty": 2,
+    "concept_intro": "You can resume previous Claude sessions with --continue or --resume. The /resume command also works interactively to pick up where you left off.",
+    "code_snippet": "claude --continue",
+    "question_text": "How do you continue a previous Claude session?",
+    "options": [
+      "Use --continue, --resume, or /resume",
+      "Type 'continue' as your first message",
+      "Sessions auto-resume by default",
+      "Use the /history command"
+    ],
+    "correct_index": 0,
+    "explanation": "Use 'claude --continue' or 'claude --resume' from the command line, or /resume interactively. This restores your previous conversation context."
+  },
+  {
+    "id": "commands-024",
+    "category": "commands",
+    "difficulty": 2,
+    "concept_intro": "The /context command shows your current token consumption. It visualizes how much of the 200K context window you've used, helping you manage long sessions.",
+    "question_text": "How do you check your current token usage?",
+    "options": [
+      "/context",
+      "/tokens",
+      "/usage",
+      "/stats"
+    ],
+    "correct_index": 0,
+    "explanation": "Use /context to see a breakdown of your token consumption. This helps you understand when to use /compact or /clear to free up context space."
+  },
+  {
+    "id": "commands-025",
+    "category": "commands",
+    "difficulty": 2,
+    "concept_intro": "The /permissions command lets you manage tool allowlists. Add or remove permissions for tools like Edit, Bash, and specific commands.",
+    "question_text": "What does /permissions do?",
+    "options": [
+      "Manages tool allowlists for editing and commands",
+      "Shows file permissions",
+      "Grants admin access",
+      "Enables dangerous mode"
+    ],
+    "correct_index": 0,
+    "explanation": "Use /permissions to add or remove tools from your allowlist. For example, allow 'Bash(git commit:*)' to auto-approve git commits."
+  },
+  {
+    "id": "commands-026",
+    "category": "commands",
+    "difficulty": 2,
+    "concept_intro": "Shift+Tab toggles auto-accept mode, letting Claude work autonomously without asking permission for each action. Use with caution.",
+    "question_text": "What does Shift+Tab toggle?",
+    "options": [
+      "Auto-accept mode for autonomous work",
+      "Tab completion",
+      "Dark mode",
+      "Vim keybindings"
+    ],
+    "correct_index": 0,
+    "explanation": "Shift+Tab enables auto-accept mode - Claude works without permission prompts. Useful for trusted operations, but use carefully as it bypasses confirmations."
+  },
+  {
+    "id": "commands-027",
+    "category": "commands",
+    "difficulty": 1,
+    "concept_intro": "Tab completion lets you quickly reference files and folders in your prompts. Start typing a path and press Tab to autocomplete.",
+    "question_text": "How do you quickly reference files in your prompts?",
+    "options": [
+      "Use Tab completion while typing paths",
+      "Use the /files command",
+      "Manually type the full path",
+      "Use the @ symbol only"
+    ],
+    "correct_index": 0,
+    "explanation": "Tab completion works for file paths. Start typing and press Tab to autocomplete file and folder names from anywhere in your repository."
+  },
+  {
+    "id": "commands-028",
+    "category": "commands",
+    "difficulty": 2,
+    "concept_intro": "The # key during a session lets you add notes directly to your CLAUDE.md file. It prompts you to save instructions that should persist across sessions.",
+    "question_text": "What does the # key do during a session?",
+    "options": [
+      "Adds notes to CLAUDE.md for persistence",
+      "Starts a comment in your prompt",
+      "Opens the help menu",
+      "Toggles markdown mode"
+    ],
+    "correct_index": 0,
+    "explanation": "Press # to add instructions to your CLAUDE.md file. Claude prompts where to store it - great for saving learned preferences without leaving your session."
+  },
+  {
+    "id": "commands-029",
+    "category": "commands",
+    "difficulty": 2,
+    "concept_intro": "Use @file to mention specific files and @directory/ (with trailing slash) to include entire directories in your context.",
+    "code_snippet": "@src/utils/ @package.json",
+    "question_text": "How do you add a whole directory to your context?",
+    "options": [
+      "@directory/ (with trailing slash)",
+      "@directory (no slash)",
+      "/include directory",
+      "import directory"
+    ],
+    "correct_index": 0,
+    "explanation": "Use @directory/ with a trailing slash to include an entire directory. Use @file without the slash for single files. Both instantly add context."
+  },
+  {
+    "id": "commands-030",
+    "category": "commands",
+    "difficulty": 3,
+    "concept_intro": "The /export command dumps your conversation to markdown. Useful for documentation, sharing progress, or creating handoff notes.",
+    "question_text": "How do you export a conversation to markdown?",
+    "options": [
+      "/export",
+      "/save",
+      "/dump",
+      "/markdown"
+    ],
+    "correct_index": 0,
+    "explanation": "Use /export to dump your conversation to markdown format. Great for documenting what you accomplished or creating handoff notes for team members."
   }
 ]

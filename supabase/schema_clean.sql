@@ -10,6 +10,7 @@ create table if not exists profiles (
   daily_streak int default 0,
   longest_daily_streak int default 0,
   last_played_date date,
+  loadout jsonb default '{"armor": "knight", "weapon": "sword", "shield": "tower"}'::jsonb,
   created_at timestamptz default now(),
   updated_at timestamptz default now()
 );

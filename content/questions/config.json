@@ -1,0 +1,227 @@
+[
+  {
+    "id": "config-001",
+    "category": "config",
+    "difficulty": 1,
+    "concept_intro": "CLAUDE.md is a configuration file that gives Claude context about your project. It's automatically loaded every conversation, so Claude always knows your preferences.",
+    "question_text": "What is CLAUDE.md used for?",
+    "options": [
+      "Project context and preferences that persist across sessions",
+      "Storing API keys securely",
+      "Logging Claude's responses",
+      "Defining test configurations"
+    ],
+    "correct_index": 0,
+    "explanation": "CLAUDE.md provides persistent context - project structure, coding standards, and preferences. It's loaded automatically every time you start Claude Code."
+  },
+  {
+    "id": "config-002",
+    "category": "config",
+    "difficulty": 1,
+    "concept_intro": "The /init command analyzes your codebase and generates a starter CLAUDE.md automatically. Review and refine it based on your team's actual practices.",
+    "question_text": "What command generates a CLAUDE.md file for your project?",
+    "options": [
+      "/init",
+      "/setup",
+      "/config",
+      "/create-config"
+    ],
+    "correct_index": 0,
+    "explanation": "Run /init and Claude will analyze your codebase to generate a starter CLAUDE.md. Review the output and refine it to match your team's actual practices."
+  },
+  {
+    "id": "config-003",
+    "category": "config",
+    "difficulty": 1,
+    "concept_intro": "The filename must be exactly CLAUDE.md (uppercase CLAUDE, lowercase .md). Case sensitivity matters - claude.md won't work.",
+    "question_text": "What is the correct capitalization for the config file?",
+    "options": [
+      "CLAUDE.md (uppercase CLAUDE, lowercase .md)",
+      "claude.md (all lowercase)",
+      "Claude.md (only C uppercase)",
+      "CLAUDE.MD (all uppercase)"
+    ],
+    "correct_index": 0,
+    "explanation": "The file must be exactly CLAUDE.md - uppercase CLAUDE with lowercase .md extension. Case matters for Claude Code to recognize and load it."
+  },
+  {
+    "id": "config-004",
+    "category": "config",
+    "difficulty": 2,
+    "concept_intro": "CLAUDE.local.md is for personal preferences you don't want in version control. Add it to .gitignore - it won't be shared with your team.",
+    "question_text": "How do you store personal preferences without committing them?",
+    "options": [
+      "Use CLAUDE.local.md and add it to .gitignore",
+      "Use .claude-personal.md",
+      "Put them in a .env file",
+      "Use ~/CLAUDE.md only"
+    ],
+    "correct_index": 0,
+    "explanation": "CLAUDE.local.md stores personal preferences. Add it to .gitignore so your individual settings don't get shared with the team's version control."
+  },
+  {
+    "id": "config-005",
+    "category": "config",
+    "difficulty": 2,
+    "concept_intro": "Place CLAUDE.md at ~/.claude/CLAUDE.md for settings that apply to ALL your projects. It acts as your personal default configuration.",
+    "question_text": "Where do you put CLAUDE.md for global settings across all projects?",
+    "options": [
+      "~/.claude/CLAUDE.md",
+      "~/CLAUDE.md",
+      "/etc/claude/CLAUDE.md",
+      "~/.config/claude.md"
+    ],
+    "correct_index": 0,
+    "explanation": "~/.claude/CLAUDE.md provides global defaults that apply to all your projects. Project-level CLAUDE.md files can override these settings."
+  },
+  {
+    "id": "config-006",
+    "category": "config",
+    "difficulty": 2,
+    "concept_intro": "Keep your CLAUDE.md concise! Every line competes for attention with your actual work. Long files waste tokens that could be used for coding.",
+    "question_text": "Why should CLAUDE.md be kept concise?",
+    "options": [
+      "Every line consumes tokens from your context window",
+      "Long files cause slow startup",
+      "Claude can only read 100 lines",
+      "Git has file size limits"
+    ],
+    "correct_index": 0,
+    "explanation": "Context is precious - every line in CLAUDE.md uses tokens that could go to your actual work. Delete filler content that doesn't add strategic value."
+  },
+  {
+    "id": "config-007",
+    "category": "config",
+    "difficulty": 2,
+    "concept_intro": "Don't put code style rules in CLAUDE.md - use linters instead. Linters enforce rules automatically, while CLAUDE.md suggestions can be inconsistent.",
+    "question_text": "What should you NOT put in CLAUDE.md?",
+    "options": [
+      "Detailed code formatting rules (use linters instead)",
+      "Project architecture overview",
+      "Common commands",
+      "Testing requirements"
+    ],
+    "correct_index": 0,
+    "explanation": "Don't duplicate what linters do better. Use ESLint, Prettier, or similar tools for code style. CLAUDE.md is for project context, not formatting rules."
+  },
+  {
+    "id": "config-008",
+    "category": "config",
+    "difficulty": 2,
+    "concept_intro": "Never put sensitive information like API keys in CLAUDE.md. It becomes part of Claude's context and could be shared or exposed.",
+    "question_text": "What should NEVER go in CLAUDE.md?",
+    "options": [
+      "API keys and credentials",
+      "Build commands",
+      "Architecture diagrams",
+      "Testing frameworks"
+    ],
+    "correct_index": 0,
+    "explanation": "Never put secrets in CLAUDE.md! It's loaded into Claude's context every session. Use .env files and environment variables for sensitive data."
+  },
+  {
+    "id": "config-009",
+    "category": "config",
+    "difficulty": 2,
+    "concept_intro": "Use emphasis keywords like 'IMPORTANT' or 'YOU MUST' for critical instructions. Claude pays more attention to emphasized rules.",
+    "question_text": "How can you make Claude follow critical rules more reliably?",
+    "options": [
+      "Use emphasis like 'IMPORTANT' or 'YOU MUST'",
+      "Repeat the rule three times",
+      "Put it at the end of the file",
+      "Use all caps for the entire file"
+    ],
+    "correct_index": 0,
+    "explanation": "Keywords like 'IMPORTANT' and 'YOU MUST' signal critical instructions. Claude is trained to pay more attention to emphasized rules."
+  },
+  {
+    "id": "config-010",
+    "category": "config",
+    "difficulty": 2,
+    "concept_intro": "Claude Code has a 200K context window. Your CLAUDE.md, conversation history, and file contents all compete for this space.",
+    "question_text": "What is Claude Code's context window limit?",
+    "options": [
+      "200K tokens",
+      "100K tokens",
+      "50K tokens",
+      "Unlimited"
+    ],
+    "correct_index": 0,
+    "explanation": "Claude Code has a 200K token context window. Your CLAUDE.md, conversation, and files all share this space. Use /compact when you run low."
+  },
+  {
+    "id": "config-011",
+    "category": "config",
+    "difficulty": 3,
+    "concept_intro": "MCP (Model Context Protocol) servers extend Claude's capabilities, but each one consumes context. Too many MCPs can shrink usable context from 200K to 70K.",
+    "question_text": "How can too many MCPs affect your context window?",
+    "options": [
+      "They can shrink usable context from 200K to 70K",
+      "They have no effect on context",
+      "They increase context to 400K",
+      "They only affect response speed"
+    ],
+    "correct_index": 0,
+    "explanation": "Each MCP server consumes context tokens. Too many enabled MCPs can reduce your usable context from 200K to as low as 70K. Keep under 10 active per project."
+  },
+  {
+    "id": "config-012",
+    "category": "config",
+    "difficulty": 3,
+    "concept_intro": "The .mcp.json file in your repo makes MCP tools available to all team members automatically. Configure MCP servers there for shared team access.",
+    "question_text": "How do you share MCP configurations with your team?",
+    "options": [
+      "Create a .mcp.json file in your repo",
+      "Export your ~/.claude/settings.json",
+      "Use a shared CLAUDE.md file",
+      "MCPs can't be shared"
+    ],
+    "correct_index": 0,
+    "explanation": "A checked-in .mcp.json file makes MCP tools available to all team members automatically when they work on the project."
+  },
+  {
+    "id": "config-013",
+    "category": "config",
+    "difficulty": 2,
+    "concept_intro": "In monorepos, you can have nested CLAUDE.md files. Parent directories provide shared context, while subdirectories can have package-specific overrides.",
+    "question_text": "How do CLAUDE.md files work in monorepos?",
+    "options": [
+      "Nested files provide shared and package-specific context",
+      "Only the root CLAUDE.md is read",
+      "Only the deepest CLAUDE.md is read",
+      "Monorepos don't support CLAUDE.md"
+    ],
+    "correct_index": 0,
+    "explanation": "In monorepos, Claude reads CLAUDE.md files from parent directories down. Root provides shared context, subdirectories add package-specific instructions."
+  },
+  {
+    "id": "config-014",
+    "category": "config",
+    "difficulty": 3,
+    "concept_intro": "Use 'disabledMcpServers' in your project .claude/settings.json to turn off specific MCPs for a project without uninstalling them globally.",
+    "question_text": "How do you disable specific MCPs for one project only?",
+    "options": [
+      "Use disabledMcpServers in project settings.json",
+      "Delete the MCP from your global config",
+      "Add a .nomcp file",
+      "MCPs can only be disabled globally"
+    ],
+    "correct_index": 0,
+    "explanation": "Add disabledMcpServers to your project's .claude/settings.json. This turns off specific MCPs for that project without affecting your global configuration."
+  },
+  {
+    "id": "config-015",
+    "category": "config",
+    "difficulty": 3,
+    "concept_intro": "For complex tasks, create scratchpad files to plan before implementing. Claude can track progress in a markdown file, preserving context across sessions.",
+    "question_text": "What's a good technique for planning complex multi-session tasks?",
+    "options": [
+      "Use scratchpad markdown files to track progress",
+      "Keep everything in conversation memory",
+      "Use git commit messages",
+      "Create a new session for each step"
+    ],
+    "correct_index": 0,
+    "explanation": "Create markdown scratchpad files to plan complex tasks. Claude can update them as you progress, and they persist across sessions unlike conversation history."
+  }
+]

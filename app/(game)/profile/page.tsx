@@ -67,7 +67,7 @@ export default async function ProfilePage() {
   }));
 
   // Calculate category stats
-  const categories = ["agents", "commands", "hooks"];
+  const categories = ["agents", "commands", "hooks", "config"];
   const categoryStats = categories.map((cat) => {
     const progress = categoryProgress?.find((p) => p.category === cat);
     return {
@@ -93,14 +93,23 @@ export default async function ProfilePage() {
       {/* User info with Avatar */}
       <div className="bg-slate-800 rounded-2xl p-6 mb-6">
         <div className="flex flex-col items-center mb-4">
-          {/* Avatar */}
-          <Avatar
-            xp={profile?.xp || 0}
-            size="lg"
-            showTier={true}
-            showProgress={true}
-          />
-          <h2 className="text-xl font-bold mt-4">
+          {/* Avatar - Click to customize */}
+          <Link href="/equipment" className="hover:scale-105 transition-transform">
+            <Avatar
+              xp={profile?.xp || 0}
+              loadout={profile?.loadout || { armor: "knight", weapon: "sword", shield: "tower" }}
+              size="lg"
+              showTier={true}
+              showProgress={true}
+            />
+          </Link>
+          <Link
+            href="/equipment"
+            className="text-xs text-blue-400 hover:text-blue-300 mt-2 transition-colors"
+          >
+            ⚙️ Customize Equipment
+          </Link>
+          <h2 className="text-xl font-bold mt-2">
             {profile?.username || user.email}
           </h2>
           <p className="text-slate-400">{levelInfo?.title || "Newcomer"}</p>

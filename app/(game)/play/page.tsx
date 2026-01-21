@@ -35,11 +35,14 @@ export default async function PlayPage() {
       <header className="flex justify-between items-center mb-8">
         <div className="flex items-center gap-4">
           {profile && (
-            <Avatar
-              xp={profile.xp || 0}
-              size="sm"
-              showTier={false}
-            />
+            <Link href="/equipment" className="hover:scale-105 transition-transform">
+              <Avatar
+                xp={profile.xp || 0}
+                loadout={profile.loadout || { armor: "knight", weapon: "sword", shield: "tower" }}
+                size="md"
+                showTier={true}
+              />
+            </Link>
           )}
           <div>
             {profile ? (

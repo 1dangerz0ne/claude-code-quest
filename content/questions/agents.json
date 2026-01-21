@@ -224,5 +224,159 @@
     ],
     "correct_index": 0,
     "explanation": "Agent results are not visible to the user directly. You should send a text message with a concise summary of what the agent found or accomplished."
+  },
+  {
+    "id": "agents-016",
+    "category": "agents",
+    "difficulty": 2,
+    "concept_intro": "Skills are markdown files that extend Claude's capabilities. They can be invoked manually with /skill-name or triggered automatically based on their description.",
+    "question_text": "What are Skills in Claude Code?",
+    "options": [
+      "Markdown files that add custom slash commands",
+      "Pre-trained model abilities",
+      "User proficiency levels",
+      "Code snippets library"
+    ],
+    "correct_index": 0,
+    "explanation": "Skills are markdown files (SKILL.md) that add custom capabilities. They can be invoked with /skill-name or triggered automatically when Claude detects relevant requests."
+  },
+  {
+    "id": "agents-017",
+    "category": "agents",
+    "difficulty": 2,
+    "concept_intro": "Skills are stored in .claude/skills/ directories. Project skills go in your repo, personal skills in ~/.claude/skills/. Project skills override personal ones.",
+    "question_text": "Where do you store personal skills that work across all projects?",
+    "options": [
+      "~/.claude/skills/",
+      ".claude/skills/",
+      "~/skills/",
+      "/usr/local/claude/skills/"
+    ],
+    "correct_index": 0,
+    "explanation": "Personal skills go in ~/.claude/skills/ and work across all your projects. Project-specific skills go in .claude/skills/ in your repo and override personal ones."
+  },
+  {
+    "id": "agents-018",
+    "category": "agents",
+    "difficulty": 3,
+    "concept_intro": "Each skill needs a SKILL.md file with YAML frontmatter. The 'description' field tells Claude when to auto-trigger it. Use 'disable-model-invocation: true' for manual-only skills.",
+    "code_snippet": "---\nname: deploy\ndisable-model-invocation: true\n---",
+    "question_text": "How do you make a skill only trigger when you manually invoke it?",
+    "options": [
+      "Set disable-model-invocation: true in frontmatter",
+      "Remove the description field",
+      "Set user-invocable: false",
+      "Prefix the name with underscore"
+    ],
+    "correct_index": 0,
+    "explanation": "Set disable-model-invocation: true in the YAML frontmatter. This prevents Claude from auto-triggering it - only you can invoke it with /skill-name."
+  },
+  {
+    "id": "agents-019",
+    "category": "agents",
+    "difficulty": 3,
+    "concept_intro": "Skills can run in isolated subagents using 'context: fork'. This preserves your main context and lets the skill work independently.",
+    "code_snippet": "---\ncontext: fork\nagent: Explore\n---",
+    "question_text": "What does 'context: fork' do in a skill?",
+    "options": [
+      "Runs the skill in an isolated subagent",
+      "Creates a backup of context",
+      "Splits context between two agents",
+      "Enables parallel execution"
+    ],
+    "correct_index": 0,
+    "explanation": "context: fork runs the skill in a separate subagent with its own context. This prevents the skill from consuming your main context window."
+  },
+  {
+    "id": "agents-020",
+    "category": "agents",
+    "difficulty": 3,
+    "concept_intro": "You can restrict which tools a skill can use with 'allowed-tools' in the frontmatter. This creates safe, limited skills.",
+    "code_snippet": "allowed-tools: Read, Grep, Glob",
+    "question_text": "How do you create a read-only skill that can't edit files?",
+    "options": [
+      "Set allowed-tools to only Read, Grep, Glob",
+      "Set readonly: true",
+      "Use the Explore agent type",
+      "Remove Edit from the skill"
+    ],
+    "correct_index": 0,
+    "explanation": "Use allowed-tools: Read, Grep, Glob in the frontmatter to restrict the skill to read-only operations. It won't be able to use Edit or Write tools."
+  },
+  {
+    "id": "agents-021",
+    "category": "agents",
+    "difficulty": 2,
+    "concept_intro": "Git worktrees let you run multiple Claude sessions on different branches simultaneously. Each worktree is an independent checkout.",
+    "question_text": "What enables parallel Claude sessions on different branches?",
+    "options": [
+      "Git worktrees",
+      "Git branches",
+      "Git stash",
+      "Multiple repos"
+    ],
+    "correct_index": 0,
+    "explanation": "Git worktrees create independent checkouts of different branches. Run separate Claude sessions in each worktree to work on multiple tasks simultaneously."
+  },
+  {
+    "id": "agents-022",
+    "category": "agents",
+    "difficulty": 2,
+    "concept_intro": "Each agent (including subagents) gets its own 200K context window. This is why subagents are useful for verification tasks - they start fresh.",
+    "question_text": "How much context does each subagent have?",
+    "options": [
+      "Its own independent 200K tokens",
+      "Shares the parent's context",
+      "50K tokens maximum",
+      "Unlimited context"
+    ],
+    "correct_index": 0,
+    "explanation": "Each subagent gets its own 200K context window, independent of the parent. This is why forking to a subagent preserves your main context."
+  },
+  {
+    "id": "agents-023",
+    "category": "agents",
+    "difficulty": 2,
+    "concept_intro": "Use subagents early in complex workflows for investigation tasks. They preserve your main context for the actual implementation work.",
+    "question_text": "When should you use subagents for investigation?",
+    "options": [
+      "Early in complex workflows to preserve main context",
+      "Only after exhausting main context",
+      "Never - always use main context",
+      "Only for final verification"
+    ],
+    "correct_index": 0,
+    "explanation": "Use subagents early for investigation and research. This preserves your main context window for the actual implementation work that comes later."
+  },
+  {
+    "id": "agents-024",
+    "category": "agents",
+    "difficulty": 3,
+    "concept_intro": "Have separate Claude instances review each other's work for improved outcomes. One Claude implements, another reviews in a fresh context.",
+    "question_text": "What's a good verification pattern with multiple Claude instances?",
+    "options": [
+      "Have one implement and another review",
+      "Have both implement the same thing",
+      "Use only one instance at a time",
+      "Merge outputs from both"
+    ],
+    "correct_index": 0,
+    "explanation": "Use one Claude instance to implement and another to review. The reviewer starts fresh and can catch issues the implementer missed due to context familiarity."
+  },
+  {
+    "id": "agents-025",
+    "category": "agents",
+    "difficulty": 3,
+    "concept_intro": "Skills can execute shell commands before Claude sees them using backtick syntax. The output replaces the placeholder in the skill.",
+    "code_snippet": "PR diff: !`gh pr diff`",
+    "question_text": "How do you inject command output into a skill before Claude processes it?",
+    "options": [
+      "Use !`command` backtick syntax",
+      "Use $(command) syntax",
+      "Use {command} syntax",
+      "Use @command syntax"
+    ],
+    "correct_index": 0,
+    "explanation": "Use !`command` in your skill. The command runs immediately and its output replaces the placeholder before Claude sees the skill content."
   }
 ]

@@ -37,6 +37,13 @@ const CATEGORY_STYLES = {
     icon: "🪝",
     name: "Hooks",
   },
+  config: {
+    color: "#10b981", // emerald/green
+    bgColor: "bg-emerald-900/30",
+    borderColor: "border-emerald-500",
+    icon: "⚙️",
+    name: "Config",
+  },
 };
 
 // Mastery levels
@@ -63,7 +70,7 @@ export function CategoryMastery({
   compact = false,
 }: CategoryMasteryProps) {
   // Ensure all categories are represented
-  const categories = ["agents", "commands", "hooks"];
+  const categories = ["agents", "commands", "hooks", "config"];
   const categoryData = categories.map((cat) => {
     const found = progress.find((p) => p.category === cat);
     return {
