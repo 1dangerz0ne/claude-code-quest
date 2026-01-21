@@ -92,17 +92,27 @@ Required in `.env.local`:
 
 ## Current Status
 
-### Day 1 Progress
-- [ ] Project structure created
-- [ ] Supabase configured
-- [ ] Google OAuth working
-- [ ] Dark theme layout complete
-- [ ] Protected routes working
+### Completed (2026-01-21)
+- [x] Project structure created
+- [x] Supabase schema configured
+- [x] Dark theme layout complete
+- [x] Core game loop (QuestionCard, AnswerButton, ConceptIntro)
+- [x] Quick Play mode with scoring
+- [x] Daily Challenge with leaderboard
+- [x] **Viral Features Implemented:**
+  - Wordle-style shareable results (`lib/share.ts`, `ShareButton.tsx`)
+  - Sound system with Howler.js (`lib/sounds.ts`, `SoundToggle.tsx`)
+  - Visual feedback: confetti, screen flash (`Confetti.tsx`, `FeedbackFlash.tsx`)
+  - Supabase persistence (`lib/supabase/saveGameResult.ts`)
+  - Level-up celebration modal (`LevelUpModal.tsx`)
+  - Social proof elements (`lib/stats.ts`)
+- [x] GitHub repo: https://github.com/1dangerz0ne/claude-code-quest
 
 ### What's Next
-- Day 2: Core game loop (QuestionCard, AnswerButton, ConceptIntro)
-- Day 3: Quick Play mode with scoring
-- Day 4: Daily Challenge with leaderboard
+- Deploy to Railway (add env vars: `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`)
+- Add sound files to `public/sounds/` (tap, correct, wrong, combo, levelup, streak .mp3)
+- Configure Google OAuth in Supabase dashboard
+- Test on actual mobile device
 
 ## Important Notes
 
