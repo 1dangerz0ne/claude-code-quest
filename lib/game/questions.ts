@@ -70,3 +70,29 @@ export function getDailyQuestions(date: Date, count: number = 10): Question[] {
 export function getTodayDateString(): string {
   return new Date().toISOString().slice(0, 10);
 }
+
+// Get questions with a specific seed (for challenges)
+export function getSeededQuestions(seed: number, count: number = 5): Question[] {
+  const all = getAllQuestions();
+
+  // Seeded random shuffle (same algorithm as getDailyQuestions)
+  const shuffled = [...all];
+  let currentSeed = seed;
+
+  function seededRandom() {
+    currentSeed = (currentSeed * 1103515245 + 12345) & 0x7fffffff;
+    return currentSeed / 0x7fffffff;
+  }
+
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(seededRandom() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+
+  return shuffled.slice(0, count);
+}
+
+// Generate a random seed for challenges
+export function generateQuestionSeed(): number {
+  return Math.floor(Math.random() * 1000000);
+}

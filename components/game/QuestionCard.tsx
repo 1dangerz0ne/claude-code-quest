@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { AnswerButton } from "./AnswerButton";
 import { HighlightedText } from "@/components/ui/HighlightedText";
+import { ShareTipButton } from "./LearnedShare";
 import { playSound } from "@/lib/sounds";
 import type { Question } from "@/lib/game/questions";
 
@@ -111,9 +112,16 @@ export function QuestionCard({
             <p className="font-semibold mb-2">
               {isCorrect ? "🎉 Correct!" : "❌ Not quite..."}
             </p>
-            <p className="text-slate-300 text-sm">
+            <p className="text-slate-300 text-sm mb-3">
               <HighlightedText text={question.explanation} />
             </p>
+            {/* Share this tip */}
+            <div className="flex justify-end">
+              <ShareTipButton
+                explanation={question.explanation}
+                category={question.category}
+              />
+            </div>
           </div>
 
           {/* Continue button */}
